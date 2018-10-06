@@ -1,5 +1,6 @@
 // Requiring necessary npm packages
 var express = require("express");
+require("dotenv").config();
 var bodyParser = require("body-parser");
 var session = require("express-session");
 // Requiring passport as we've configured it
