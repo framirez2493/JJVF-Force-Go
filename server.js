@@ -20,6 +20,17 @@ app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true 
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+// disable CORS to avoid headaches, had trouble getting datatables to talk to the 
+// express server without using this function
+https://stackoverflow.com/questions/40025450/express-js-no-access-control-allow-origin-header-is-present-on-the-requested
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+
 // Requiring our routes
 require("./routes/html-routes.js")(app);
 require("./routes/api-routes.js")(app);

@@ -52,4 +52,125 @@ module.exports = function(app) {
     }
   });
 
+  /*
+  API Product routes! 
+    app.get:  get listing of all products
+    app.post:  to add a product
+    app.delete:  to delete a product
+    app.put: to update a product
+  */
+
+  // get request to return JSON of all products
+  app.get("/api/products", function(req, res) {
+    if (req.user) {
+      console.log("AUTHENTICATED get products API called")
+       res.json(testData)
+    } else {
+      console.log("unauthenticated get products API called")
+      res.json(testData)
+    }
+  });
+
+  // get request to return JSON of specific product
+  app.get("/api/product/:id", function(req, res) {
+    if (req.user) {
+      console.log("AUTHENTICATED get specific product API called")
+      res.json(testOneProduct)
+    } else {
+      console.log("unauthenticated get specific product API called")
+      res.json(testOneProduct)
+    }
+  });
+
+  // post request to add a new product
+  app.post("/api/product", function(req, res) {
+    if (req.user) {
+      console.log("AUTHENTICATED POST add products API called")
+      res.json({ "status": true, "user": req.user ,"action":"post"})
+    } else {
+      console.log("unauthenticated POST add products API called")
+      res.json({ "status": true, "user": "Unauthenticated", 'action':"post" })
+    }
+  });
+
+  // delete request to remove a product
+  app.delete("/api/product/:id", function(req, res) {
+
+    if (req.user) {
+      console.log("AUTHENTICATED DELETE product API called")
+      res.json({ "status": true, "user": req.user ,"action":"delete"})
+    } else {
+      console.log("unauthenticated DELETE product API called")
+      res.json({ "status": true, "user": "Unauthenticated", 'action':"delete" })
+    }
+  });
+
+
+  app.put("/api/product/:id", function(req, res) {
+    // If the user already has an account send them to the members page
+    if (req.user) {
+      console.log("AUTHENTICATED PUT update product API called")
+      res.json({ "status": true, "user": req.user, 'action':"update" })
+    } else {
+      console.log("unauthenticated PUT update product API called")
+      res.json({ "status": true, "user": "Unauthenticated", 'action':"update" })
+    }
+  });
+
+
+  var testOneProduct = {
+    "date": "1/1/2015",
+    "product": "Oven",
+    "price": 12.25,
+    "Warranty Expire": "1/1/2017",
+     "Store": "Best Buy"
+  }
+
+  var testData = { 
+    "data": [
+            ["1/1/2015", " Oven", " $800", " 10/30/2018 ", " Best Buy"],
+            ["1/1/2015", " Refrigerator", " $1500", " 10/30/2018", " Best Buy"],
+            ["5/30/2018", " Iphone X", " $1000", " 5/29/2019", " Apple Store"],
+            ["7/13/2016", " New Desk", " $2000", " 7/13/2020", " Office Depot"],
+            ["9/1/2018", " Pencil Sharpner", " $30", " 8/31/2020", " Office Depot"],
+            ["1/1/2015", " Oven", " $800", " 10/30/2018 ", " Best Buy"],
+            ["1/1/2015", " Refrigerator", " $1500", " 10/30/2018", " Best Buy"],
+            ["5/30/2018", " Iphone X", " $1000", " 5/29/2019", " Apple Store"],
+            ["7/13/2016", " New Desk", " $2000", " 7/13/2020", " Office Depot"],
+            ["9/1/2018", " Pencil Sharpner", " $30", " 8/31/2020", " Office Depot"],
+            ["1/1/2015", " Oven", " $800", " 10/30/2018 ", " Best Buy"],
+            ["1/1/2015", " Refrigerator", " $1500", " 10/30/2018", " Best Buy"],
+            ["5/30/2018", " Iphone X", " $1000", " 5/29/2019", " Apple Store"],
+            ["7/13/2016", " New Desk", " $2000", " 7/13/2020", " Office Depot"],
+            ["9/1/2018", " Pencil Sharpner", " $30", " 8/31/2020", " Office Depot"],
+            ["1/1/2015", " Oven", " $800", " 10/30/2018 ", " Best Buy"],
+            ["1/1/2015", " Refrigerator", " $1500", " 10/30/2018", " Best Buy"],
+            ["5/30/2018", " Iphone X", " $1000", " 5/29/2019", " Apple Store"],
+            ["7/13/2016", " New Desk", " $2000", " 7/13/2020", " Office Depot"],
+            ["9/1/2018", " Pencil Sharpner", " $30", " 8/31/2020", " Office Depot"],
+            ["1/1/2015", " Oven", " $800", " 10/30/2018 ", " Best Buy"],
+            ["1/1/2015", " Refrigerator", " $1500", " 10/30/2018", " Best Buy"],
+            ["5/30/2018", " Iphone X", " $1000", " 5/29/2019", " Apple Store"],
+            ["7/13/2016", " New Desk", " $2000", " 7/13/2020", " Office Depot"],
+            ["9/1/2018", " Pencil Sharpner", " $30", " 8/31/2020", " Office Depot"],
+            ["1/1/2015", " Oven", " $800", " 10/30/2018 ", " Best Buy"],
+            ["1/1/2015", " Refrigerator", " $1500", " 10/30/2018", " Best Buy"],
+            ["5/30/2018", " Iphone X", " $1000", " 5/29/2019", " Apple Store"],
+            ["7/13/2016", " New Desk", " $2000", " 7/13/2020", " Office Depot"],
+            ["9/1/2018", " Pencil Sharpner", " $30", " 8/31/2020", " Office Depot"],
+            ["1/1/2015", " Oven", " $800", " 10/30/2018 ", " Best Buy"],
+            ["1/1/2015", " Refrigerator", " $1500", " 10/30/2018", " Best Buy"],
+            ["5/30/2018", " Iphone X", " $1000", " 5/29/2019", " Apple Store"],
+            ["7/13/2016", " New Desk", " $2000", " 7/13/2020", " Office Depot"],
+            ["9/1/2018", " Pencil Sharpner", " $30", " 8/31/2020", " Office Depot"],
+            ["1/1/2015", " Oven", " $800", " 10/30/2018 ", " Best Buy"],
+            ["1/1/2015", " Refrigerator", " $1500", " 10/30/2018", " Best Buy"],
+            ["5/30/2018", " Iphone X", " $1000", " 5/29/2019", " Apple Store"],
+            ["7/13/2016", " New Desk", " $2000", " 7/13/2020", " Office Depot"],
+            ["9/1/2018", " Pencil Sharpner", " $30", " 8/31/2020", " Office Depot"]
+        ]
+}
+
+
+
 };
