@@ -129,18 +129,17 @@ module.exports = function (app) {
   app.get("/api/v2/product", function (req, res) {
     // list all products
     var query = {};
-    if (req.query.user_id) {
-      query.UserId = req.query.user_id;
-    } 
-    // Here we add an "include" property to our options in our findAll query
-    // We set the value to an array of the models we want to include in a left outer join
-    // In this case, just db.Author
-    db.Product.findAll({
-      where: query,
-      include: [db.User]
-    }).then(function (dbProduct) {
-      res.json(dbProduct);
-    });
+    if (req.user) {
+      db.Product.findAll({
+        where: { 'UserId': req.user.id },
+        include: [db.User]
+      }).then(function (dbProduct) {
+        res.json(dbProduct);
+      });
+    } else {
+      // return nothing if not logged in
+      res.json([])
+    }
   });
 
   // get request to return JSON of specific product
@@ -148,19 +147,27 @@ module.exports = function (app) {
     // Here we add an "include" property to our options in our findOne query
     // We set the value to an array of the models we want to include in a left outer join
     // In this case, just db.User
-    db.Product.findOne({
-      where: {
-        id: req.params.id
-      },
-      include: [db.User]
-    }).then(function (dbProduct) {
-      res.json(dbProduct);
-    });
+    if (req.user) {
+      db.Product.findOne({
+        where: {
+          id: req.params.id
+        },
+        include: [db.User]
+      }).then(function (dbProduct) {
+        res.json(dbProduct);
+      });
+    } else {
+      // return noting if not logged in
+      res.json([])
+    }
   })
 
   // post request to add a new product
   app.post("/api/v2/product", function (req, res) {
     if (req.user) {
+      // add Foreign Key
+      req.body['UserId'] = req.user.id
+      console.log(req.body)
       console.log("AUTHENTICATED POST add products API called")
       res.json({ "status": true, "user": req.user, "action": "post" })
     } else {
