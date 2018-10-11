@@ -165,9 +165,10 @@ module.exports = function (app) {
   // post request to add a new product
   app.post("/api/v2/product", function (req, res) {
     if (req.user) {
-      // add Foreign Key
-      req.body['UserId'] = req.user.id
-      console.log(req.body)
+      // json body created
+      let postEntry = req.body
+      postEntry['UserId'] = req.user.id
+      console.log(postEntry)
       console.log("AUTHENTICATED POST add products API called")
       res.json({ "status": true, "user": req.user, "action": "post" })
     } else {
