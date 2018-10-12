@@ -39,5 +39,9 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/manageProduct.html"));
   });
 
+  app.get("/testing", isAuthenticated, function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/testing.html"));
+  });
+
 
 };
