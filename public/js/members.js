@@ -25,7 +25,7 @@ $("#add-pic-btn").on("click", function(event) {
   var date = moment($("#purchase").val().trim()).format("YYYY-MM-DD HH:mm:ss");
   var namepic = $("#name").val().trim();
   var price = $("#price").val().trim()
-  var warrantyl =  moment($("#lengtWarranty").val().trim(), "YYYY-MM-DD HH:mm:ss").format("X");
+  var warrantyl =  moment($("#lengtWarranty").val().trim()).format("YYYY-MM-DD HH:mm:ss");
   var storename = $("#store").val().trim();
 
 
