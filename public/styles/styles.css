@@ -6,6 +6,14 @@ form.login {
   margin-top: 50px;
 }
 
+body { 
+  background: url('../images/background.png') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 #dropbox { 
   border: 4px dashed #ccc; 
   padding-left: 8px;
@@ -15,6 +23,7 @@ form.login {
 }
 .gallery {
   margin: 10px;
+  background-color: #ccc;
 }
 .gallery img {
   margin-left: 16px;
