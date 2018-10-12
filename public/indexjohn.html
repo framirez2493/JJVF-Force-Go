@@ -1,45 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<title>Warranty Warrior Login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+	<link rel="icon" type="image/png" href="images/icons/if_ninja-simple_479476.png" />
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-	
-	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-
-	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
-
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-
-
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	 crossorigin="anonymous">
+	 
+	<!--Linked CSS Files-->
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/login.css">
 
 </head>
+
 <body>
-	
+
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form">
-						<img src="images/icons/if_ninja-simple_479476.png" alt="warrior icon" class="center" height="96" width="96">
+				<form class="login100-form validate-form login">
+					<img src="images/icons/if_ninja-simple_479476.png" alt="warrior icon" class="center" height="96" width="96">
 					<span class="login100-form-title p-b-26">
 						Welcome To Warranty Warrior:
 					</span>
-					
 
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is: user@gmail.com">
-						<input class="input100" type="text" name="email">
+
+					<div class="wrap-input100 validate-input" data-validate="Valid email is: user@gmail.com">
+						<input class="input100" type="text" id="email-input" name="email">
 						<span class="focus-input100" data-placeholder="Email"></span>
 					</div>
 
@@ -47,14 +43,14 @@
 						<span class="btn-show-pass">
 							<i class="zmdi zmdi-eye"></i>
 						</span>
-						<input class="input100" type="password" name="pass">
+						<input class="input100" type="password" id="password-input" name="pass">
 						<span class="focus-input100" data-placeholder="Password"></span>
 					</div>
 
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn">
+							<button class="login100-form-btn" id="loginbtn">
 								Login
 							</button>
 						</div>
@@ -73,26 +69,20 @@
 			</div>
 		</div>
 	</div>
-	
+
 
 	<div id="dropDownSelect1"></div>
-	
 
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--jqury cdn-->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	 crossorigin="anonymous"></script>
 
-	<script src="vendor/animsition/js/animsition.min.js"></script>
-
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-
-	<script src="vendor/select2/select2.min.js"></script>
-
-	<script src="vendor/daterangepicker/moment.min.js"></script>
-	<script src="vendor/daterangepicker/daterangepicker.js"></script>
-
-	<script src="vendor/countdowntime/countdowntime.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	 crossorigin="anonymous"></script>
 
 	<script src="js/johnclogin.js"></script>
 
 </body>
+
 </html>
