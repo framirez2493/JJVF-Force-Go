@@ -6,7 +6,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
-  <link rel="stylesheet" href="styles/styles.css">
+  <link rel="stylesheet" type="text/css" href="styles/styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/js-datepicker/datepicker.css">
+
 </head>
 
 <body>
@@ -27,10 +30,58 @@
 
 
     </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <img src='https://res.cloudinary.com/fr7/image/upload/v1538887802/samples/ecommerce/leather-bag-gray.jpg' id="img-preview" />
+          <label class="file-upload-container" for="file-upload">
+            <input id="file-upload" type="file" style="display:none;">
+            Select an Image or file
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <form>
+          <input type="hidden" id="receipt">
+          <div class="form-group row">
+            <label for="start-input"> Date purchase (YYYY-MM-DD HH:mm:ss)</label>
+            <input class="form-control" id="purchase" placeholder="YYYY-MM-DD HH:mm:ss" type="text">
+          </div>
+
+          <div class="form-group row">
+            <label for="employee-name-input">Product Name</label>
+            <input class="form-control" id="name" placeholder="tv" type="text">
+          </div>
+          <div class="form-group row">
+            <label for="role-input">price</label>
+            <input class="form-control" id="price" placeholder="$" type="text">
+          </div>
+          <div class="form-group row">
+            <label for="start-input">expiration Date (YYYY-MM-DD HH:mm:ss)</label>
+            <input class="form-control" id="lengtWarranty" placeholder="YYYY-MM-DD HH:mm:ss" type="text">
+          </div>
+          <div class="form-group row">
+            <label for="rate-input">Store Name</label>
+            <input class="form-control" id="store" placeholder="xxxx" type="text">
+          </div>
+          <button class="btn btn-primary float-right" id="add-pic-btn">Submit</button>
+        </form>
+        </form>
+
+      </div>
+    </div>
   </div>
- 
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+ 
+   
+  <script src="https://unpkg.com/js-datepicker"></script>
   <script type="text/javascript" src="js/members.js"></script>
+
 
 </body>
 
