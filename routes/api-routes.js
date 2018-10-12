@@ -183,13 +183,19 @@ module.exports = function (app) {
 
   // delete request to remove a product
   app.delete("/api/v2/product/:id", function (req, res) {
-
     if (req.user) {
       console.log("AUTHENTICATED DELETE product API called")
-      res.json({ "status": true, "user": req.user, "action": "delete" })
+      db.Product.destroy({
+        where: {
+          id: req.params.id
+        }
+      }).then(function(productDelete){
+        console.log("did I make it here to completed deleting?")
+        res.json(productDelete)
+      });
     } else {
       console.log("unauthenticated DELETE product API called")
-      res.json({ "status": true, "user": "Unauthenticated", 'action': "delete" })
+      res.json({})
     }
   });
 
