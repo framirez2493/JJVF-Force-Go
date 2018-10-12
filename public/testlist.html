@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Testing (showTable</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <!-- datatables CDN https://datatables.net/examples/basic_init/zero_configuration.html -->
+    <link rel="stylesheet" type="text/css" media="screen" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/logout">
+                    Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <h1>Welcome <span class="member-name"></span></h1>
+                <h2>Testing DataTables GetList with Actual Data </h2>
+                <br><br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <h3>GET PRODUCT LIST API</h3>
+                <hr>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button id="getlist" type="submit" class="btn btn-default">Get Product List</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <p id="resultproductlist">
+            </p>
+            <table id="productlisttable" class="table table-bordered table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th title="Field #1">ID</th>
+                        <th title="Field #2">Purchased</th>
+                        <th title="Field #3">Product</th>
+                        <th title="Field #4">Price</th>
+                        <th title="Field #5">Warranty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data is retreived via ajax datatables API -->
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+    <!-- CDN for datatables js, this includes Jquery  -->
+    <!-- https://datatables.net/examples/basic_init/zero_configuration.html -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <!-- CDN for bootstrap js, excludes Jquery since it's called above -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/testing.js"></script>
+
+</body>
+
+</html>
