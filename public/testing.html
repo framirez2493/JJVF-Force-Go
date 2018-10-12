@@ -23,13 +23,19 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <h2>Welcome <span class="member-name"></span></h2>
-                <h3>Let's add some Data</h3>
+                <h3>TESTING ADDING API ENTRY</h3>
                 <hr>
                 <form class="form-horizontal">
                     <div class="form-group">
+                        <label for="" class="col-sm-3 control-label">Receipt URL</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="productreceipturl" value="http://blah.net/blah.jpg">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="datePurchased" class="col-sm-3 control-label">Date Purchased</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="datepurchased">
+                            <input type="text" class="form-control" id="productdatepurchased" value="2018-10-11 11:11:11">
                         </div>
                     </div>
                     <div class="form-group">
@@ -41,25 +47,31 @@
                     <div class="form-group">
                         <label for="productPrice" class="col-sm-3 control-label">Product Price</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="datepurchased">
+                            <input type="text" class="form-control" id="productprice" value="99.99">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="productName" class="col-sm-3 control-label">Warranty Length</label>
+                        <label for="productWarranty" class="col-sm-3 control-label">Warranty Length</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="warranty length">
+                            <input type="text" class="form-control" id="productwarranty" value="2020-10-21 23:23:59">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="datePurchased" class="col-sm-3 control-label">Store</label>
+                        <label for="productStore" class="col-sm-3 control-label">Store</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="store">
+                            <input type="text" class="form-control" id="productstore">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="productName" class="col-sm-3 control-label">notes</label>
+                            <label for="productwarrantyurl" class="col-sm-3 control-label">Warranty URL</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="productwarrantyurl" value="http://blah.net/blah.jpg">
+                            </div>
+                        </div>
+                    <div class="form-group">
+                        <label for="productnotes" class="col-sm-3 control-label">notes</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="notes">
+                            <input type="text" class="form-control" id="productnotes">
                         </div>
                     </div>
 
@@ -72,6 +84,76 @@
                 </form>
             </div>
         </div>
+        <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <hr><hr><hr>
+                    <h3>TESTING UPDATING ENTRY</h3>
+                    <hr>
+                    <form class="form-horizontal">
+                            <div class="form-group">
+                                    <label for="" class="col-sm-3 control-label">Update ID</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="udproductid" value="4">
+                                    </div>
+                                </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3 control-label">Receipt URL</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="udproductreceipturl" value="http://blah.net/blah.jpg">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="datePurchased" class="col-sm-3 control-label">Date Purchased</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="udproductdatepurchased" value="2018-10-11 11:11:11">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="productName" class="col-sm-3 control-label">Product Name</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="udproductname">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="productPrice" class="col-sm-3 control-label">Product Price</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="udproductprice" value="99.99">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="productWarranty" class="col-sm-3 control-label">Warranty Length</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="udproductwarranty" value="2020-10-21 23:23:59">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="productStore" class="col-sm-3 control-label">Store</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="udproductstore">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                <label for="productwarrantyurl" class="col-sm-3 control-label">Warranty URL</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="udproductwarrantyurl" value="http://blah.net/blah.jpg">
+                                </div>
+                            </div>
+                        <div class="form-group">
+                            <label for="productnotes" class="col-sm-3 control-label">notes</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="udproductnotes">
+                            </div>
+                        </div>
+    
+    
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <button id="updateme" type="submit" class="btn btn-default">Update Product</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <!-- CDN for bootstrap js, excludes Jquery since it's called above -->

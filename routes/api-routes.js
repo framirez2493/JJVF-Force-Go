@@ -158,7 +158,7 @@ module.exports = function (app) {
       });
     } else {
       // return noting if not logged in
-      res.json([])
+      res.json({})
     }
   })
 
@@ -166,14 +166,18 @@ module.exports = function (app) {
   app.post("/api/v2/product", function (req, res) {
     if (req.user) {
       // json body created
-      let postEntry = req.body
-      postEntry['UserId'] = req.user.id
-      console.log(postEntry)
+      let productEntry = req.body
+      productEntry['UserId'] = req.user.id
+      console.log(productEntry)
       console.log("AUTHENTICATED POST add products API called")
-      res.json({ "status": true, "user": req.user, "action": "post" })
+      db.Product.create(productEntry).then(function(productEntry){
+        res.json(productEntry)
+      });
+      // res.json({ "status": true, "user": req.user, "action": "post" })
     } else {
       console.log("unauthenticated POST add products API called")
-      res.json({ "status": true, "user": "Unauthenticated", 'action': "post" })
+      // res.json({ "status": true, "user": "Unauthenticated", 'action': "post" })
+      res.json({})
     }
   });
 
@@ -190,14 +194,25 @@ module.exports = function (app) {
   });
 
 
-  app.put("/api/v2/product/:id", function (req, res) {
-    // If the user already has an account send them to the members page
+  app.put("/api/v2/product", function (req, res) {
     if (req.user) {
-      console.log("AUTHENTICATED PUT update product API called")
-      res.json({ "status": true, "user": req.user, 'action': "update" })
+      // json body created
+      let productUpdate = req.body
+      console.log(productUpdate)
+      console.log("AUTHENTICATED POST add products API called")
+      db.Product.update(
+        productUpdate,{
+          where: {
+            id: req.body.id
+          }
+        }).then(function(productUpdate){
+        res.json(productUpdate)
+      });
+      // res.json({ "status": true, "user": req.user, "action": "post" })
     } else {
-      console.log("unauthenticated PUT update product API called")
-      res.json({ "status": true, "user": "Unauthenticated", 'action': "update" })
+      console.log("unauthenticated POST add products API called")
+      // res.json({ "status": true, "user": "Unauthenticated", 'action': "post" })
+      res.json({})
     }
   });
 

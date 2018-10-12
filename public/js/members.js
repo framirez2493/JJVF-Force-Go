@@ -1,105 +1,95 @@
-$(document).ready(function() {
-    // This file just does a GET request to figure out which user is logged in
-    // and updates the HTML on the page
-    $.get("/api/user_data").then(function(data) {
-      $(".member-name").text(data.email);
+
+const CLAUDINARY_URL = 'https://api.cloudinary.com/v1_1/fr7/upload';
+
+const CLAUDINARY_UPLOAD_PRESET = "xewk1otu"
+$(document).ready(function () {
+  // This file just does a GET request to figure out which user is logged in
+  // and updates the HTML on the page
+  $.get("/api/user_data").then(function (data) {
+    $(".member-name").text(data.email);
+  });
+  
+
+var fileUpload = document.getElementById('file-upload');
+
+if(fileUpload != null){
+  attachListener(fileUpload);
+
+}
+
+$("#add-pic-btn").on("click", function(event) {
+  event.preventDefault();
+
+  // Grabs user input
+  var url = $("#receipt").val().trim();
+  var date = moment($("#purchase").val().trim()).format("YYYY-MM-DD HH:mm:ss");
+  var namepic = $("#name").val().trim();
+  var price = $("#price").val().trim()
+  var warrantyl =  moment($("#lengtWarranty").val().trim()).format("YYYY-MM-DD HH:mm:ss");
+  var storename = $("#store").val().trim();
+
+
+  // Creates local "temporary" object for holding employee data
+  var products = {
+    dateOfpurchase: date,
+    Product: namepic,
+    price: price,
+    Warranty: warrantyl,
+    store: storename,
+    info: url
+  };
+console.log(products);
+});
+});
+
+const picker = datepicker('#purchase');
+const picker2 = datepicker("#lengtWarranty");
+
+console.log(picker)
+
+function attachListener(fileUpload) {
+  var imgPreview = document.getElementById('img-preview');
+
+
+  fileUpload.addEventListener('change', function (event) {
+    var file = event.target.files[0];
+    var formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', CLAUDINARY_UPLOAD_PRESET);
+    //console.log(file);
+    axios({
+        url: CLAUDINARY_URL,
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: formData
+    }).then(function(res){
+        imgPreview.src = res.data.secure_url;
+        //append(imgPreview.src);
+
+        console.log(imgPreview.src);
+
+        $("#receipt").val(imgPreview.src);
+        console.log(imgPreview.src);
+
+
+    }).catch(function(err){
+        console.log(err);
+
     });
   });
-  //var cloudinary = require("cloudinary-core"); // If your code is for ES5
+}
+
+
+
+
+
+
+
+//var cloudinary = require("cloudinary-core"); // If your code is for ES5
 //import cloudinary from “cloudinary-core”;    // If your code is for ES6 or higher
 
 //var cl = new cloudinary.Cloudinary({cloud_name: "demo", secure: true});
 
-const cloudName = 'fr7';
-const unsignedUploadPreset = 'xewk1otu';
 
-var fileSelect = document.getElementById("fileSelect"),
-  fileElem = document.getElementById("fileElem");
-
-fileSelect.addEventListener("click", function(e) {
-  if (fileElem) {
-    fileElem.click();
-  }
-  e.preventDefault(); // prevent navigation to "#"
-}, false);
-
-// ************************ Drag and drop ***************** //
-function dragenter(e) {
-  e.stopPropagation();
-  e.preventDefault();
-}
-
-function dragover(e) {
-  e.stopPropagation();
-  e.preventDefault();
-}
-
-dropbox = document.getElementById("dropbox");
-dropbox.addEventListener("dragenter", dragenter, false);
-dropbox.addEventListener("dragover", dragover, false);
-dropbox.addEventListener("drop", drop, false);
-
-function drop(e) {
-  e.stopPropagation();
-  e.preventDefault();
-
-  var dt = e.dataTransfer;
-  var files = dt.files;
-
-  handleFiles(files);
-}
-
-// *********** Upload file to Cloudinary ******************** //
-function uploadFile(file) {
-  var url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
-  var xhr = new XMLHttpRequest();
-  var fd = new FormData();
-  xhr.open('POST', url, true);
-  xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-  // Reset the upload progress bar
-   document.getElementById('progress').style.width = 0;
-  
-  // Update progress (can be used to show progress indicator)
-  xhr.upload.addEventListener("progress", function(e) {
-    var progress = Math.round((e.loaded * 100.0) / e.total);
-    document.getElementById('progress').style.width = progress + "%";
-
-    console.log(`fileuploadprogress data.loaded: ${e.loaded},
-  data.total: ${e.total}`);
-  });
-
-  xhr.onreadystatechange = function(e) {
-    if (xhr.readyState == 4 && xhr.status == 200) {
-      alert("File uploaded successfully"); 
-
-      var response = JSON.parse(xhr.responseText);
-      console.log(response);
-
-      // https://res.cloudinary.com/cloudName/image/upload/v1483481128/public_id.jpg
-      var url = response.secure_url;
-      console.log(url);
-
-      // Create a thumbnail of the uploaded image, with 150px width
-      var tokens = url.split('/');
-      tokens.splice(-2, 0, 'w_150,c_scale');
-      var img = new Image(); // HTML5 Constructor
-      img.src = tokens.join('/');
-      img.alt = response.public_id;
-      document.getElementById('gallery').appendChild(img);
-    }
-  };
-
-  fd.append('upload_preset', unsignedUploadPreset);
-  fd.append('tags', 'browser_upload'); // Optional - add tag for image admin in Cloudinary
-  fd.append('file', file);
-  xhr.send(fd);
-}
-
-// *********** Handle selected files ******************** //
-var handleFiles = function(files) {
-  for (var i = 0; i < files.length; i++) {
-    uploadFile(files[i]); // call the function to upload the file
-  }
-};
-  
