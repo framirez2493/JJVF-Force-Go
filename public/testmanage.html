@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="styles/styles.css">
     <!-- datatables CDN https://datatables.net/examples/basic_init/zero_configuration.html -->
     <link rel="stylesheet" type="text/css" media="screen" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/js-datepicker/datepicker.css">
 </head>
 
 <body>
@@ -27,7 +28,7 @@
                 <h1>Welcome <span class="member-name"></span></h1>
                 <h2>Manage Products: Delete, or Update </h2>
                 <a href="/members"><button>View </button> </a>
-                <a href="/addProduct"><button>Add </button></a> 
+                <a href="/addProduct"><button>Add </button></a>
                 <a href="/manageProduct"><button>Update/Delete</button></a>
                 <br><br>
             </div>
@@ -57,7 +58,7 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="listModal" role="dialog">
+    <div class="modal fade" id="deleteModal" role="dialog">
         <div class="modal-dialog">
 
             <!-- Modal content-->
@@ -72,7 +73,7 @@
                         <h1 id="status"></h1>
                         <h2 id="statusmessage"></h2>
                     </div>
-                    <button id="confirmdelete">CONFIRM DELETE</button>
+                    <button class="btn btn-danger" id="confirmdelete">CONFIRM DELETE</button>
                     <div class="row">Created At: <span id="prodcreate"></span></div>
                     <div class="row">Last Update: <span id="produpdate"></span></div>
                     <div class="row">Warranty Expires: <span id="warrantyexp"></span></div>
@@ -81,8 +82,91 @@
                     <div class="row">Purchase Date: <span id="purchasedate"></span></div>
                     <div class="row">Store: <span id="store"></span></div>
                     <div class="row">notes: <span id="notes"></span></div>
-                    <div class="row">Receipt: <img id="receipturl" src="" alt="receipt image" class='img-responsive' style='max-width:300px'></div>
-                    <div class="row">Warranty: <img id="warrantyurl" src="" alt="warrranty image" class='img-responsive' style='max-width:300px'></div>
+                    <div class="row">Receipt: <img id="receipturl" src="" alt="receipt image" class='img-responsive'
+                            style='max-width:300px'></div>
+                    <div class="row">Warranty: <img id="warrantyurl" src="" alt="warrranty image" class='img-responsive'
+                            style='max-width:300px'></div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="updateModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Update Product Details</h4>
+                    <h4 id="up_statusmessage"></h4>
+                    <button class="btn btn-primary" id="confirmupdate">UPDATE ENTRIES</button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="/action_page.php">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="warrantyexp">Warranty Expire:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="up_warrantyexp">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="">Product Name: </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="up_prodname">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="email">Product Price:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="up_prodprice">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="email">Purchase Date: </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="up_purchasedate">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                <label class="control-label col-sm-2" for="email">Store: </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="up_store">
+                                </div>
+                            </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="email">Notes:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="up_notes">
+                            </div>
+                        </div>
+                        <!--
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="email">Receipt URL:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="up_receiptURL">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="email">Warranty URL:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="up_warrantyURL">
+                            </div>
+                        </div>
+                        -->
+                    </form>
+
+
+                    <div class="row">Receipt: <img id="up_receipturl" src="" alt="receipt image" class='img-responsive'
+                            style='max-width:300px'></div>
+                    <div class="row">Warranty: <img id="up_warrantyurl" src="" alt="warrranty image" class='img-responsive'
+                            style='max-width:300px'></div>
 
                 </div>
                 <div class="modal-footer">
@@ -103,6 +187,9 @@
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/js-datepicker"></script>
     <script type="text/javascript" src="js/testmanage.js"></script>
 
 </body>

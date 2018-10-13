@@ -30,6 +30,7 @@ $(document).ready(function () {
     const picker = datepicker('#getpurchasedate');
     const picker2 = datepicker("#getproductwarranty");
 
+
     // event handler when picture is the upload button is pressed
     $("#addRecord").on("click", function (event) {
         event.preventDefault();
