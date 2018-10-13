@@ -5,35 +5,6 @@ $(document).ready(function () {
         $(".member-name").text(data.email);
     });
 
-    $(document).on("click", "#addme", function (event) {
-        event.preventDefault();
-        console.log("---------------  Add was clicked---------")
-        addme();
-    })
-
-    $(document).on("click", "#updateme", function (event) {
-        event.preventDefault();
-        console.log("---------------  Update was clicked---------")
-        updateme();
-    })
-
-    $(document).on("click", "#deleteme", function (event) {
-        event.preventDefault();
-        console.log("------------Delete was clicked---------")
-        deleteme()
-    })
-
-    $(document).on("click", "#getlist", function (event) {
-        event.preventDefault();
-        console.log("------------get list was clicked---------")
-        getlist()
-    })
-
-    $(document).on("click", "#getbyid", function (event) {
-        event.preventDefault();
-        console.log("------------get by id was clicked---------")
-        getbyid()
-    })
 
     // this is the TABLE for the main web page 
     // product list display    see testlist.html
@@ -44,98 +15,75 @@ $(document).ready(function () {
             get: 'GET'
         },
         "columns": [
-            { data: 'id' },
             { data: 'warranty_expire_date' },
             { data: 'purchase_date' },
             { data: 'product_name' },
-            { data: 'product_price' }
+            { data: 'product_price' },
+            {
+                'data': null,
+                "defaultContent": "<button class='productdelete'> X </button> <button class='productedit'> E </button>"
+            },
         ],
         "scrollY": '50vh',
         "scrollCollapse": true,
         "paging": false,
-        "columnDefs": [
-            {
-                "targets": [0],
-                "visible": false,
-                "searchable": false
-            }
-        ],
         "order": [
-            [1, "asc"]
+            [0, "asc"]
         ]
     })
 
-    // this is the selector onclick event for the main table
-    $('#productlisttable tbody').on('click', 'tr', function (event) {
-        event.preventDefault();
-        let productInfo = maintable.row(this).data();
-        if ($(this).hasClass('selected')) {
-            $(this).removeClass('selected');
-        }
-        else {
-            maintable.$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-        }
-        console.log(productInfo);
-        showListModal(productInfo);
-        console.log('Again?')
-    });
+    // act on delete button
+    $('#productlisttable tbody').on("click", "button.productdelete", function () {
+        let data = maintable.row($(this).parents('tr')).data();
+        console.log(data)
+        showDeleteModal("DELETE REQUEST", "Are you sure you want to delete this record?", data)
+    })
+
+
+    // delete confirmation
+    $(document).on("click","#confirmdelete", function(){
+        let idinfo = $(this).data("id")
+        console.log("Before you delete: ",idinfo)
+        submitDeleteProduct(idinfo)
+    })
+
+    // act on edit button
+    $('#productlisttable tbody').on("click", "button.productedit", function () {
+        let data = maintable.row($(this).parents('tr')).data();
+        console.log(data)
+        alert("Update Operation: " + data['product_name'] + "'s ID is: " + data['id'])
+    })
+
+    
+
 
 });
 
 // this is the function for the main table as well.    
-function showListModal(data) {
+function showDeleteModal(status, statusmessage, data) {
+
+    $("button#confirmdelete").attr('data-id', data.id)
+
+    $("h1#status").html(status)
+    $("#statusmessage").html(statusmessage)
 
     $("#prodcreate").html(data.createdAt)
     $("#produpdate").html(data.updatedAt)
     $("#purchasedate").html(data.purchase_date)
     $("#prodname").html(data.product_name)
     $("#warrantyexp").html(data.warranty_expire_date)
-    $("#prodprice").html(data.product_price) 
-    $("#store").html(data.store) 
-    $("#receipturl").attr("src",data.receipt_URL) 
-    $("#warranty").attr("src",data.warranty_URL) 
-    $("#notes").html(data.notes) 
-    
+    $("#prodprice").html(data.product_price)
+    $("#store").html(data.store)
+    $("#receipturl").attr("src", data.receipt_URL)
+    $("#warranty").attr("src", data.warranty_URL)
+    $("#notes").html(data.notes)
+
 
     $("#listModal").modal("show")
 }
 
 
 
-/*
-Add a product to WARRANTY WARRIOR!!!
- addme() pulls the data from forms and formats the object to be added
- submitNewProduct() sends the object to the server so it can be added to the DB
-*/
-
-// this function creates the object to add  
-function addme() {
-    let newProduct = {}
-    console.log('i am in the addme function!')
-    // build newProduct object in correct format to add to database
-    newProduct.purchase_date = $("#productdatepurchased").val().trim()
-    newProduct.product_name = $("#productname").val().trim()
-    newProduct.warranty_expire_date = $("#productwarranty").val().trim()
-    newProduct.product_price = $("#productprice").val().trim()
-    newProduct.store = $("#productstore").val().trim()
-    newProduct.receipt_URL = $("#productreceipturl").val().trim()
-    newProduct.warranty_URL = $("#productwarrantyurl").val().trim()
-    newProduct.notes = $("#productnotes").val().trim()
-    console.log("I am in finishing addme", newProduct)
-    submitNewProduct(newProduct)
-}
-
-
-
-
-// this function actually calls the API method that updates the database
-function submitNewProduct(newProduct) {
-    // this api call will add the user object also  
-    $.post("/api/v2/product", newProduct, function (newProduct) {
-        console.log("My stuff has been submitted to DB!", newProduct)
-    })
-}
 
 
 /*
@@ -184,12 +132,6 @@ Delete an existing product of WARRANTY WARRIOR!!!
   submitDeleteProduct submits the object to the server for deletion
 */
 
-function deleteme() {
-    let delProdID = $("#delproductid").val().trim()
-    console.log("I am in delete!")
-    submitDeleteProduct(delProdID)
-}
-
 
 // this function actually calls the API method that updates the database
 function submitDeleteProduct(delProduct) {
@@ -199,6 +141,7 @@ function submitDeleteProduct(delProduct) {
         url: "/api/v2/product/" + delProduct,
     }).then(function () {
         console.log("I have deleted ", delProduct)
+        location.reload()
     })
 }
 

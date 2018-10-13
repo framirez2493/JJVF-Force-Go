@@ -142,6 +142,28 @@ module.exports = function (app) {
     }
   });
 
+  // get request to return JSON of all products
+  // put it in a object referenced by key "data"
+  // to be complient with datatables
+  app.get("/api/v2/productdata", function (req, res) {
+    // list all products
+    var query = {};
+    if (req.user) {
+      db.Product.findAll({
+        where: { 'UserId': req.user.id },
+        include: [db.User]
+      }).then(function (dbProduct) {
+        let table = {}
+        table['data'] = dbProduct
+        res.json(table);
+      });
+    } else {
+      // return nothing if not logged in
+      res.json({})
+    }
+  });
+
+
   // get request to return JSON of specific product
   app.get("/api/v2/product/:id", function (req, res) {
     // Here we add an "include" property to our options in our findOne query
@@ -183,13 +205,19 @@ module.exports = function (app) {
 
   // delete request to remove a product
   app.delete("/api/v2/product/:id", function (req, res) {
-
     if (req.user) {
       console.log("AUTHENTICATED DELETE product API called")
-      res.json({ "status": true, "user": req.user, "action": "delete" })
+      db.Product.destroy({
+        where: {
+          id: req.params.id
+        }
+      }).then(function(productDelete){
+        console.log("did I make it here to completed deleting?")
+        res.json(productDelete)
+      });
     } else {
       console.log("unauthenticated DELETE product API called")
-      res.json({ "status": true, "user": "Unauthenticated", 'action': "delete" })
+      res.json({})
     }
   });
 
