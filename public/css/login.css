@@ -82,7 +82,7 @@ a:focus {
 
 a:hover {
 	text-decoration: none;
-  color: #6a7dfe;
+  color: #fff;
   color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
   color: -o-linear-gradient(left, #21d4fd, #b721ff);
   color: -moz-linear-gradient(left, #21d4fd, #b721ff);
@@ -169,10 +169,52 @@ iframe {
 
 .txt2 {
   font-family: Poppins-Regular;
-  font-size: 13px;
-  color: #333333;
+  font-size: 14px;
+  color: #fff;
+  text-shadow: 2px 2px 2px #000;
   line-height: 1.5;
+  background-image: linear-gradient(to right, #bfeff5 , #d69caf);
+  border-radius: 10px;
+    padding: 10px; 
+    width: 200px;
+    height: 150px;
 }
+
+.button_login {
+  border-width: 1px;
+  border-style: solid;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 25px;
+  width: 200px;
+  margin-top: 10px;
+  font-size: 14px;
+  font-family: Poppins-Regular;
+  padding: 10px;
+  text-decoration: none;
+  display: inline-block;
+  text-shadow: 1px 1px 1px #000;
+  font-weight: bold;
+  color: #FFFFFF;
+  background-color: #D69CAF;
+  background-image: -webkit-gradient(linear, left, padding-right, from(#D69CAF), to(#BFEFF5));
+  background-image: -webkit-linear-gradient(left, #BFEFF5, #D69CAF);
+  background-image: -moz-linear-gradient(left, #BFEFF5, #D69CAF);
+  background-image: -ms-linear-gradient(left, #BFEFF5, #D69CAF);
+  background-image: -o-linear-gradient(left, #BFEFF5, #D69CAF);
+  background-image: linear-gradient(to right, #BFEFF5, #D69CAF);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#D69CAF, endColorstr=#BFEFF5);
+}
+  
+  .button_login:hover{
+   box-shadow: 1px 1px 1px #000;
+   background-color: #c77892; background-image: -webkit-gradient(linear, right, from(#BFEFF5, #D69CAF));
+   background-image: -webkit-linear-gradient(left, #BFEFF5, #D69CAF);
+   background-image: -moz-linear-gradient(left, #BFEFF5, #D69CAF);
+   background-image: -ms-linear-gradient(left, #BFEFF5, #D69CAF);
+   background-image: -o-linear-gradient(left, #BFEFF5, #D69CAF);
+   background-image: linear-gradient(to right, #BFEFF5, #D69CAF);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#c77892, endColorstr=#93e4ee);
+  }
 
 
 /*[ login ]*/
