@@ -85,7 +85,7 @@ $(document).ready(function () {
 
 // this is the function for the main table as well.    
 function showListModal(data) {
-
+    console.log("Did I make it here?");
     $("#prodcreate").html(data.createdAt)
     $("#produpdate").html(data.updatedAt)
     $("#purchasedate").html(data.purchase_date)
