@@ -26,8 +26,10 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <h1>Welcome <span class="member-name"></span></h1>
-                <h2>Testing Add Using Fernando's Work </h2>
-                <button>View Products</button> <button>Add Products</button> <button>Manage (update/delete) Products</button>
+                <h2>Add Products Page Based on Fernando's Work </h2>
+                <a href="/members"><button>View Products</button> </a>
+                <a href="/addProduct"><button>Add Products</button></a> 
+                <a href="/manageProduct"><button>Manage (update/delete) Products</button></a>
                 <br><br>
             </div>
         </div>
@@ -37,83 +39,75 @@
         <div class="row">
             <div class="col-12">
                 <form>
-                    <div class="row">
-                        <div class="col-12">
-                            <img src='https://res.cloudinary.com/fr7/image/upload/v1538887802/samples/ecommerce/leather-bag-gray.jpg'
-                                width="400px" id="img-preview" />
-                            <label class="file-upload-container" for="file-upload">
-                                <input id="file-upload" type="file" style="display:none;">
-                                Select an Image or file
+                    <div class="form-group">
+                        <label for="Upload Picture" class="col-sm-3 control-label">Upload Receipt</label>
+                        <div class="col-sm-9">
+                            <img src='/images/receipt.png' width="300px" id="receipt-preview" />
+                            <label class="file-upload-container" for="receipt-upload">
+                                <input id="receipt-upload" type="file" style="display:none;">
+                                Select an Image or pdf
                             </label>
                         </div>
                     </div>
-                    <br>
-                    <input type="hidden" id="receipt">
+                    <div class="form-group">
+                        <input type="hidden" id="getreceipturl">
+                    </div>
 
-
-                    <div class="form-group row">
-                        <label for="employee-name-input">Product Name</label>
-                        <input class="form-control" id="name" placeholder="tv" type="text">
-                    </div>
-                    <div class="form-group row">
-                        <label for="role-input">price</label>
-                        <input class="form-control" id="price" placeholder="$" type="text">
-                    </div>
-                    <div class="form-group row">
-                        <label for="start-input">expiration Date (YYYY-MM-DD HH:mm:ss)</label>
-                        <input class="form-control" id="lengtWarranty" placeholder="YYYY-MM-DD HH:mm:ss" type="text">
-                    </div>
-                    <div class="form-group row">
-                        <label for="rate-input">Store Name</label>
-                        <input class="form-control" id="store" placeholder="xxxx" type="text">
-                    </div>
 
                     <div class="form-group">
                         <label for="datePurchased" class="col-sm-3 control-label">Date Purchased</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="purchase" placeholder="YYYY-MM-DD HH:mm:ss" >
+                            <input type="text" class="form-control" id="getpurchasedate" placeholder="YYYY-MM-DD">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="productName" class="col-sm-3 control-label">Product Name</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="productname">
+                            <input type="text" class="form-control" id="getproductname">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="productPrice" class="col-sm-3 control-label">Product Price</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="productprice" value="99.99">
+                            <input type="text" class="form-control" id="getproductprice" placeholder="99.99">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="productWarranty" class="col-sm-3 control-label">Warranty Length</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="productwarranty" value="2020-10-21 23:23:59">
+                            <input type="text" class="form-control" id="getproductwarranty" placeholder="YYYY-MM-DD">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="productStore" class="col-sm-3 control-label">Store</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="productstore">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="productwarrantyurl" class="col-sm-3 control-label">Warranty URL</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="productwarrantyurl" value="http://blah.net/blah.jpg">
+                            <input type="text" class="form-control" id="getproductstore">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="productnotes" class="col-sm-3 control-label">notes</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="productnotes">
+                            <input type="text" class="form-control" id="getproductnotes">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="Upload Warranty" class="col-sm-3 control-label">Upload Warranty</label>
+                        <div class="col-sm-9">
+                            <img src='/images/warranty.png' width="300px" id="warranty-preview" />
+                            <label class="file-upload-container" for="warranty-upload">
+                                <input id="warranty-upload" type="file" style="display:none;">
+                                Select an Image or pdf
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" id="getwarrantyurl">
+                    </div>
 
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <button class="btn btn-block btn-primary" id="addRecord">Add Product</button>
+                    </div>
 
-
-                    <button class="btn btn-primary float-right" id="add-pic-btn">Submit</button>
                 </form>
             </div>
         </div>
@@ -132,18 +126,18 @@
                 </div>
                 <div class="modal-body">
                     <div Class="row">
-                        <h1>STATUS: <span id="addstatus"></span></h1>
+                        <h3>STATUS: <span id="modalstatus"></span></h3>
+                        <h4>Reason: <span id="modalstatusreason"></span></h4>
                     </div>
-                    <div class="row">Created At: <span id="prodcreate"></span></div>
-                    <div class="row">Last Update: <span id="produpdate"></span></div>
+                    <hr>
                     <div class="row">Warranty Expires: <span id="warrantyexp"></span></div>
                     <div class="row">Product Name: <span id="prodname"></span></div>
                     <div class="row">Product Price: <span id="prodprice"></span></div>
                     <div class="row">Purchase Date: <span id="purchasedate"></span></div>
                     <div class="row">Store: <span id="store"></span></div>
                     <div class="row">notes: <span id="notes"></span></div>
-                    <div class="row">Receipt: <img id="receipturl" src="" alt="receipt image"></div>
-                    <div class="row">Warranty: <img id="warrantyurl" src="" alt="warrranty image"></div>
+                    <div class="row">Receipt: <img id="receipturl" src="" alt="receipt image" width="400px"></div>
+                    <div class="row">Warranty: <img id="warrantyurl" src="" alt="warrranty image" width="400px"></div>
 
                 </div>
                 <div class="modal-footer">

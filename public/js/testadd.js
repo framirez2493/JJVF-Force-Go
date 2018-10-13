@@ -9,56 +9,92 @@ $(document).ready(function () {
         $(".member-name").text(data.email);
     });
 
-    var fileUpload = document.getElementById('file-upload');
+    // clear URL entries on reload amd clear modal
+    
+    clearModal()
 
-    if (fileUpload != null) {
-        attachListener(fileUpload);
 
+    // receipt Upload event listener, preview, gets URL from cloudinary
+    var receiptUpload = document.getElementById('receipt-upload');
+    if (receiptUpload != null) {
+        attachListener1(receiptUpload, 'receipt-preview', "#getreceipturl");
     }
 
-    const picker = datepicker('#purchase');
-    const picker2 = datepicker("#lengtWarranty");
+    // warranty Upload event listener preview, gest URL from cloudinary
+    var warrantyUpload = document.getElementById('warranty-upload');
+    if (warrantyUpload != null) {
+        attachListener1(warrantyUpload, 'warranty-preview',"#getwarrantyurl");
+    }
 
+    // create calendar input with the popout calendar
+    const picker = datepicker('#getpurchasedate');
+    const picker2 = datepicker("#getproductwarranty");
 
-    $("#add-pic-btn").on("click", function (event) {
+    // event handler when picture is the upload button is pressed
+    $("#addRecord").on("click", function (event) {
         event.preventDefault();
 
-        // Grabs user input
-        var url = $("#receipt").val().trim();
-        var date = moment($("#purchase").val().trim()).format("YYYY-MM-DD HH:mm:ss");
-        var namepic = $("#name").val().trim();
-        var price = $("#price").val().trim()
-        var warrantyl = moment($("#lengtWarranty").val().trim()).format("YYYY-MM-DD HH:mm:ss");
-        var storename = $("#store").val().trim();
+        //disable button while processing request
+        $("#addRecord").prop("disabled", true)
 
+        // Grabs user input
+        let receipturl = $("#getreceipturl").val().trim();
+        let warrantyurl = $("#getwarrantyurl").val().trim();
+        let productname = $("#getproductname").val().trim();
+        let purchaseprice = $("#getproductprice").val().trim()
+        let warrantyexp = moment($("#getproductwarranty").val().trim()).format("YYYY-MM-DD HH:mm:ss");
+        let purchasedate = moment($("#getpurchasedate").val().trim()).format("YYYY-MM-DD HH:mm:ss");
+        let productstore = $("#getproductstore").val().trim();
+        let productnotes = $("#getproductnotes").val().trim();
 
         // Creates local "temporary" object for holding employee data
-        var products = {
-            dateOfpurchase: date,
-            Product: namepic,
-            price: price,
-            Warranty: warrantyl,
-            store: storename,
-            info: url
+        let product2add = {}
+        product2add = {
+            purchase_date: purchasedate,
+            product_name: productname,
+            product_price: purchaseprice,
+            warranty_expire_date: warrantyexp,
+            store: productstore,
+            receipt_URL: receipturl,
+            warranty_URL: warrantyurl,
+            notes: productnotes 
         };
-        console.log(products);
+        
+        // Check if values are empty
+        if (productname==="" || warrantyexp ==="Invalid date" || purchasedate === "Invalid date") {
+            let status = "FAIL"
+            let failreason = "Missing Data: Pleae make sure at least the Product Name, Warranty Expiration Date, and Purchase Date is supplied."
+            addModal(product2add, status, failreason)
+   
+        } else {
+        // gonna Try to Add
+            console.log(product2add)
+            submitNewProduct(product2add)
+        }
+
+
+
+
     });
 
 });
 
 
-// picture preview tool
-
-function attachListener(fileUpload) {
-    var imgPreview = document.getElementById('img-preview');
+// picture preview tool for receipt and uploader to cloudinary
+// imgloc refers to the preview location
+// targer refers to the ID where to place the resulting URL string
+function attachListener1(receiptUpload, previewselector, urlresult) {
+    var imgPreview = document.getElementById(previewselector);
   
   
-    fileUpload.addEventListener('change', function (event) {
+    receiptUpload.addEventListener('change', function (event) {
       var file = event.target.files[0];
       var formData = new FormData();
       formData.append('file', file);
       formData.append('upload_preset', CLAUDINARY_UPLOAD_PRESET);
-      //console.log(file);
+
+      // disable while uploading image and change message
+      
       axios({
         url: CLAUDINARY_URL,
         method: "POST",
@@ -70,10 +106,10 @@ function attachListener(fileUpload) {
         imgPreview.src = res.data.secure_url;
         //append(imgPreview.src);
   
-        console.log(imgPreview.src);
+        console.log(urlresult, imgPreview.src);
   
-        $("#receipt").val(imgPreview.src);
-        console.log(imgPreview.src);
+        $(urlresult).val(imgPreview.src);
+        console.log(urlresult, imgPreview.src);
   
   
       }).catch(function (err) {
@@ -83,58 +119,63 @@ function attachListener(fileUpload) {
     });
   }
   
-  
 
-// this is the function for the main table as well.    
-function showListModal(data) {
+// clear modal data
+function clearModal() {
+    //clear URL's
+    $("#getreceipturl").html("");
+    $("#getwarrantyurl").html("");
 
-    $("#prodcreate").html(data.createdAt)
-    $("#produpdate").html(data.updatedAt)
+    // clear current entries
+    $('#modalstatus').html("")
+    $('#modalstatusreason').html("")
+    $("#purchasedate").html("")
+    $("#prodname").html("")
+    $("#warrantyexp").html("")
+    $("#prodprice").html("")
+    $("#store").html("")
+    $("img#receipturl").attr("src", "/images/receipt.png")
+    $("img#warrantyurl").attr("src", "/images/warranty.png")
+    $("#notes").html("")
+}
+
+// udpate modal data   
+function addModal(data, status, statusreason) {
+    clearModal()
+
+    // update with new entries
+    $('#modalstatus').html(status)
+    $('#modalstatusreason').html(statusreason)
     $("#purchasedate").html(data.purchase_date)
     $("#prodname").html(data.product_name)
     $("#warrantyexp").html(data.warranty_expire_date)
     $("#prodprice").html(data.product_price)
     $("#store").html(data.store)
     $("#receipturl").attr("src", data.receipt_URL)
-    $("#warranty").attr("src", data.warranty_URL)
+    $("#warrantyurl").attr("src", data.warranty_URL)
     $("#notes").html(data.notes)
+    $("#addModal").modal("show")
 
-
-    $("#listModal").modal("show")
+    // re-enable button after add
+    $("#addRecord").prop("disabled", false)
 }
-
-
-
-/*
-Add a product to WARRANTY WARRIOR!!!
- addme() pulls the data from forms and formats the object to be added
- submitNewProduct() sends the object to the server so it can be added to the DB
-*/
-
-// this function creates the object to add  
-function addme() {
-    let newProduct = {}
-    console.log('i am in the addme function!')
-    // build newProduct object in correct format to add to database
-    newProduct.purchase_date = $("#productdatepurchased").val().trim()
-    newProduct.product_name = $("#productname").val().trim()
-    newProduct.warranty_expire_date = $("#productwarranty").val().trim()
-    newProduct.product_price = $("#productprice").val().trim()
-    newProduct.store = $("#productstore").val().trim()
-    newProduct.receipt_URL = $("#productreceipturl").val().trim()
-    newProduct.warranty_URL = $("#productwarrantyurl").val().trim()
-    newProduct.notes = $("#productnotes").val().trim()
-    console.log("I am in finishing addme", newProduct)
-    submitNewProduct(newProduct)
-}
-
 
 
 
 // this function actually calls the API method that updates the database
 function submitNewProduct(newProduct) {
     // this api call will add the user object also  
-    $.post("/api/v2/product", newProduct, function (newProduct) {
+    $.post("/api/v2/product", newProduct, function (returnNewProduct) {
+        console.log(returnNewProduct)
+        if (returnNewProduct.id > 0) {
+            let status = "SUCCESS"
+            let statusmessage = "item successfully added"
+            addModal(returnNewProduct, status, statusmessage)
+        } else {
+            let status = "FAILURE"
+            let statusmessage = "item had issues adding"
+            addModal(returnNewProduct, status, statusmessage) 
+        }
         console.log("My stuff has been submitted to DB!", newProduct)
     })
 }
