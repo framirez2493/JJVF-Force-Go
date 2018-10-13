@@ -13,7 +13,7 @@
   --white: #fff;
   --gray: #868e96;
   --gray-dark: #343a40;
-  --primary: #007bff;
+  --primary: #bfeff5 !important;
   --secondary: #5A6169;
   --success: #17c671;
   --info: #00b8d8;
@@ -40,10 +40,10 @@ body {
   background-color: #fff; }
 
 a {
-  color: #007bff;
+  color: #bfeff5 !important;
   text-decoration: none; }
   a:hover {
-    color: #0056b3;
+    color: #d69caf !important;
     text-decoration: underline; }
 
 b, strong {
