@@ -1,4 +1,6 @@
-let picker, picker2
+let picker, picker2, maintable
+const CLAUDINARY_URL = 'https://api.cloudinary.com/v1_1/fr7/upload';
+const CLAUDINARY_UPLOAD_PRESET = "xewk1otu"
 
 $(document).ready(function () {
     // This file just does a GET request to figure out which user is logged in
@@ -10,7 +12,7 @@ $(document).ready(function () {
 
     // this is the TABLE for the main web page 
     // product list display    see testlist.html
-    var maintable = $('#productlisttable').DataTable({
+    maintable = $('#productlisttable').DataTable({
         "select": "on",
         "ajax": {
             url: "/api/v2/productdata",
@@ -46,14 +48,6 @@ $(document).ready(function () {
         showDeleteModal("DELETE REQUEST", "Are you sure you want to delete this record?", data)
     })
 
-
-    // delete confirmation
-    $(document).on("click", "#confirmdelete", function () {
-        let idinfo = $(this).data("id")
-        console.log("Before you delete: ", idinfo)
-        submitDeleteProduct(idinfo)
-    })
-
     // act on edit button on table
     $('#productlisttable tbody').on("click", "button.productedit", function () {
         let data = maintable.row($(this).parents('tr')).data();
@@ -62,40 +56,106 @@ $(document).ready(function () {
         // alert("Update Operation: " + data['product_name'] + "'s ID is: " + data['id'])
     })
 
-    // update confirmation
+    // delete button inside the delete modal that opens up
+    // this click handler will cause the delete to happen
+    $(document).on("click", "#confirmdelete", function () {
+        let idinfo = $(this).data("id")
+        console.log("Before you delete: ", idinfo)
+        submitDeleteProduct(idinfo)
+    })
+
+
+    // update button isnide the update modal that opens up
+    //  this click handler will update the modal 
     $(document).on("click", "#confirmupdate", function () {
         // capture updated information
+        let idinfo = $(this).data("id")
+        $("#confirmupdate").attr('data-id', idinfo)
         captureDataAndUpdate()
     })
 
 
+    // receipt Upload event listener, preview, gets URL from cloudinary
+    var receiptUpload = document.getElementById('receipt-upload');
+    if (receiptUpload != null) {
+        attachListener1(receiptUpload, 'up_receipturl', "#getreceipturl");
+    }
+
+    // warranty Upload event listener preview, gest URL from cloudinary
+    var warrantyUpload = document.getElementById('warranty-upload');
+    if (warrantyUpload != null) {
+        attachListener1(warrantyUpload, 'up_warrantyurl',"#getwarrantyurl");
+    }
+
 
 });
 
-function captureDataAndUpdate(data) {
+
+// picture preview tool for receipt and uploader to cloudinary
+// imgloc refers to the preview location
+// urlresult refers to the ID where to place the resulting URL string
+function attachListener1(receiptUpload, previewselector, urlresult) {
+    var imgPreview = document.getElementById(previewselector);
+  
+  
+    receiptUpload.addEventListener('change', function (event) {
+      var file = event.target.files[0];
+      var formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', CLAUDINARY_UPLOAD_PRESET);
+
+      // disable while uploading image and change message
+      
+      axios({
+        url: CLAUDINARY_URL,
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: formData
+      }).then(function (res) {
+        imgPreview.src = res.data.secure_url;
+        //append(imgPreview.src);
+  
+        console.log(urlresult, imgPreview.src);
+  
+        $(urlresult).val(imgPreview.src);
+        console.log(urlresult, imgPreview.src);
+  
+  
+      }).catch(function (err) {
+        console.log(err);
+  
+      });
+    });
+  }
+  
+
+// extract data from modal fomr for updates.  And submit Update request
+function captureDataAndUpdate() {
     //disable button while processing request
-    // $("#confirmupdate").prop("disabled", true)
+    $("#confirmupdate").prop("disabled", true)
 
     // Grabs user input
     let updateProduct = {}
     console.log('i am in the updateme function!')
     // build updateProduct object in correct format to add to database
-    updateProduct.id = $("#confirmupdate").data()
-    updateProduct.purchase_date = moment($("#up_purchasedate").val().trim()).format("YYYY-MM-DD HH:mm:ss");
+    updateProduct.id = $("#confirmupdate").data("id")
     updateProduct.product_name = $("#up_prodname").val().trim()
-    updateProduct.warranty_expire_date = moment($("#up_warrantyexp").val()).trim().format("YYYY-MM-DD HH:mm:ss");
     updateProduct.product_price = $("#up_prodprice").val().trim()
+    updateProduct.warranty_expire_date = moment($("#up_warrantyexp").val().trim()).format("YYYY-MM-DD HH:mm:ss");
+    updateProduct.purchase_date = moment($("#up_purchasedate").val().trim()).format("YYYY-MM-DD HH:mm:ss");
     updateProduct.store = $("#up_store").val().trim()
-    //updateProduct.receipt_URL = $("#udproductreceipturl").val().trim()
-    //updateProduct.warranty_URL = $("#udproductwarrantyurl").val().trim()
+    updateProduct.receipt_URL = $("#getreceipturl").val().trim()
+    updateProduct.warranty_URL = $("#getwarrantyurl").val().trim()
     updateProduct.notes = $("#up_notes").val().trim()
     console.log("I am in updateme", updateProduct)
-    // submitUpdateProduct(updateProduct)
+    submitUpdateProduct(updateProduct)
 
 }
 
 
-// this is the function for the main table as well.    
+// this is the function to show the modal that allows input to update the product info
 function showUpdateModal(status, statusmessage, data) {
 
     $("#confirmupdate").attr('data-id', data.id)
@@ -112,11 +172,18 @@ function showUpdateModal(status, statusmessage, data) {
     $("#up_notes").val(data.notes)
 
 
+    
+    // reset button and messages before showing module
+    $("#confirmupdate").prop("disabled", false)
+    $("#up_statusmessage").html("")
+    $("#confirmupdate").html("UPDATE INFO")
+
+    // show modal
     $("#updateModal").modal("show")
 }
 
 
-// this is the function for the main table as well.    
+// this is the modal that lists the detail fo the object to delete    
 function showDeleteModal(status, statusmessage, data) {
 
     $("#confirmdelete").attr('data-id', data.id)
@@ -143,12 +210,6 @@ function showDeleteModal(status, statusmessage, data) {
 
 
 
-/*
-Update an existing product of WARRANTY WARRIOR!!!
- updateme() pulls the data from forms and formats the object to be updated
- submitUpdateProduct() sends the object to the server so the server can update the appropriate entry
-*/
-
 
 
 // this function actually calls the API method that updates the database
@@ -159,16 +220,18 @@ function submitUpdateProduct(updateProduct) {
         url: "/api/v2/product",
         data: updateProduct
     }).then(function (updateProduct) {
-        console.log("I have updated the file!", updateProduct)
+        console.log("I have updated the product!", updateProduct)
+
+        // reload table
+        maintable.ajax.reload()
+
+        //change status message on screen
+        $("#up_statusmessage").html("Success!")
+        $("#confirmupdate").html("Please close this window!")
     })
 }
 
 
-/*
-Delete an existing product of WARRANTY WARRIOR!!!
-  deleteme() creates the object t
-  submitDeleteProduct submits the object to the server for deletion
-*/
 
 
 // this function actually calls the API method that updates the database
