@@ -75,7 +75,7 @@ function showDeleteModal(status, statusmessage, data) {
     $("#prodprice").html(data.product_price)
     $("#store").html(data.store)
     $("#receipturl").attr("src", data.receipt_URL)
-    $("#warranty").attr("src", data.warranty_URL)
+    $("#warrantyurl").attr("src", data.warranty_URL)
     $("#notes").html(data.notes)
 
 
