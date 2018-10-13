@@ -14,10 +14,10 @@ module.exports = {
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": "root",
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": process.env.JAWSDB_USER,
+    "password": process.env.JAWSDB_PASSWORD,
+    "database": process.env.JAWSDB_DATABASE,
+    "host": process.env.JAWSDB_HOST,
     "dialect": "mysql"
   }
 }
