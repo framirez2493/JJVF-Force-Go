@@ -35,18 +35,72 @@ $(document).ready(function () {
         getbyid()
     })
 
-    $('#productlisttable').DataTable({
+    // this is the TABLE for the main web page 
+    // product list display    see testlist.html
+    var maintable = $('#productlisttable').DataTable({
+        "select": "on",
         "ajax": {
-            url: "/api/v2/products",
+            url: "/api/v2/productdata",
             get: 'GET'
         },
+        "columns": [
+            { data: 'id' },
+            { data: 'warranty_expire_date' },
+            { data: 'purchase_date' },
+            { data: 'product_name' },
+            { data: 'product_price' }
+        ],
         "scrollY": '50vh',
         "scrollCollapse": true,
-        "paging": false
+        "paging": false,
+        "columnDefs": [
+            {
+                "targets": [0],
+                "visible": false,
+                "searchable": false
+            }
+        ],
+        "order": [
+            [1, "asc"]
+        ]
     })
 
+    // this is the selector onclick event for the main table
+    $('#productlisttable tbody').on('click', 'tr', function (event) {
+        event.preventDefault();
+        let productInfo = maintable.row(this).data();
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+        }
+        else {
+            maintable.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+        console.log(productInfo);
+        showListModal(productInfo);
+        console.log('Again?')
+    });
 
 });
+
+// this is the function for the main table as well.    
+function showListModal(data) {
+
+    $("#prodcreate").html(data.createdAt)
+    $("#produpdate").html(data.updatedAt)
+    $("#purchasedate").html(data.purchase_date)
+    $("#prodname").html(data.product_name)
+    $("#warrantyexp").html(data.warranty_expire_date)
+    $("#prodprice").html(data.product_price) 
+    $("#store").html(data.store) 
+    $("#receipturl").attr("src",data.receipt_URL) 
+    $("#warranty").attr("src",data.warranty_URL) 
+    $("#notes").html(data.notes) 
+    
+
+    $("#listModal").modal("show")
+}
+
 
 
 /*
