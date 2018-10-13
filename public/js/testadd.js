@@ -30,6 +30,7 @@ $(document).ready(function () {
     const picker = datepicker('#getpurchasedate');
     const picker2 = datepicker("#getproductwarranty");
 
+
     // event handler when picture is the upload button is pressed
     $("#addRecord").on("click", function (event) {
         event.preventDefault();
@@ -82,7 +83,7 @@ $(document).ready(function () {
 
 // picture preview tool for receipt and uploader to cloudinary
 // imgloc refers to the preview location
-// targer refers to the ID where to place the resulting URL string
+// urlresult refers to the ID where to place the resulting URL string
 function attachListener1(receiptUpload, previewselector, urlresult) {
     var imgPreview = document.getElementById(previewselector);
   
