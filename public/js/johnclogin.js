@@ -113,6 +113,7 @@
             // If there's an error, log the error
         }).catch(function (err) {
             console.log(err);
+            $("#loginModal").modal("show")
         });
     }
 

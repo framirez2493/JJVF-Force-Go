@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Test (View Products)</title>
+    <title>Test (Manage Products)</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <h1>Welcome <span class="member-name"></span></h1>
-                <h2>Main Page: Show Data  click for Details. </h2>
+                <h2>Manage Products: Delete, or Update </h2>
                 <a href="/members"><button>View </button> </a>
                 <a href="/addProduct"><button>Add </button></a> 
                 <a href="/manageProduct"><button>Update/Delete</button></a>
@@ -39,11 +39,11 @@
             <table id="productlisttable" class="table table-bordered table-hover table-condensed">
                 <thead>
                     <tr>
-                        <th title="Field #1">ID</th>
                         <th title="Field #5">Warranty Expire</th>
                         <th title="Field #2">Purchased Date</th>
                         <th title="Field #3">Product</th>
                         <th title="Field #4">Price</th>
+                        <th title="Field #1">ID</th>
 
                     </tr>
                 </thead>
@@ -67,6 +67,12 @@
                     <h4 class="modal-title">Product Details</h4>
                 </div>
                 <div class="modal-body">
+
+                    <div class="row">
+                        <h1 id="status"></h1>
+                        <h2 id="statusmessage"></h2>
+                    </div>
+                    <button id="confirmdelete">CONFIRM DELETE</button>
                     <div class="row">Created At: <span id="prodcreate"></span></div>
                     <div class="row">Last Update: <span id="produpdate"></span></div>
                     <div class="row">Warranty Expires: <span id="warrantyexp"></span></div>
@@ -97,7 +103,7 @@
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/testinglist.js"></script>
+    <script type="text/javascript" src="js/testmanage.js"></script>
 
 </body>
 
