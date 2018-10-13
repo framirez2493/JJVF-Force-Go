@@ -82,7 +82,7 @@ $(document).ready(function () {
 
 // picture preview tool for receipt and uploader to cloudinary
 // imgloc refers to the preview location
-// targer refers to the ID where to place the resulting URL string
+// urlresult refers to the ID where to place the resulting URL string
 function attachListener1(receiptUpload, previewselector, urlresult) {
     var imgPreview = document.getElementById(previewselector);
   
