@@ -28,7 +28,7 @@
                 <h3>Welcome <span class="member-name"></span></h3>
                 <h4>Add Products Page Based on Fernando's Work </h4>
                 <a href="/members"><button>View </button> </a>
-                <a href="/addProduct"><button>Add </button></a>
+                <a href="/addProduct"><button>Add </button></a> 
                 <a href="/manageProduct"><button>Update/Delete</button></a>
                 <br><br>
             </div>
@@ -38,13 +38,22 @@
 
         <div class="row">
             <div class="col-12">
-                <form class="form-horizontal" action="/action_page.php">
+                <form>
                     <div class="form-group">
-                        <div class="col-sm-6 col-sm-offset-3">
-                            <button class="btn btn-block btn-primary" id="addRecord">Add Product</button>
+                        <label for="Upload Picture" class="col-sm-3 control-label">Upload Receipt</label>
+                        <div class="col-sm-9">
+                            <img src='/images/receipt.png' class='img-responsive' style='max-width:300px' id="receipt-preview" />
+                            <label class="file-upload-container" for="receipt-upload">
+                                <input id="receipt-upload" type="file" style="display:none;">
+                                Select an Image or pdf
+                            </label>
                         </div>
-                        <div class="col-sm-3"></div>
                     </div>
+                    <div class="form-group">
+                        <input type="hidden" id="getreceipturl">
+                    </div>
+
+
                     <div class="form-group">
                         <label for="datePurchased" class="col-sm-3 control-label">Date Purchased</label>
                         <div class="col-sm-9">
@@ -81,34 +90,23 @@
                             <input type="text" class="form-control" id="getproductnotes">
                         </div>
                     </div>
-
-
                     <div class="form-group">
-                        <label class="control-label col-sm-6" for="receipt-upload">
-                            <div class="col-sm-3">UPDATE RECEIPT IMG</div>
-                            <div class="col-sm-3"><input id="receipt-upload" type="file" style="display:none;"></div>
-                            <div class="col-sm-6"><img id="receipt-preview" src="/images/receipt.png" alt="receipt image"
-                                    class='img-responsive' style='max-width:250px'></div>
-                        </label>
+                        <label for="Upload Warranty" class="col-sm-3 control-label">Upload Warranty</label>
+                        <div class="col-sm-9">
+                            <img src='/images/warranty.png' class='img-responsive' style='max-width:300px' id="warranty-preview" />
+                            <label class="file-upload-container" for="warranty-upload">
+                                <input id="warranty-upload" type="file" style="display:none;">
+                                Select an Image or pdf
+                            </label>
+                        </div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-6" for="warranty-upload">
-
-                            <div class="col-sm-3">UPDATE WARRANTY IMG</div>
-                            <div class="col-sm-3"><input id="warranty-upload" type="file" style="display:none;"></div>
-                            <div class="col-sm-6"><img id="warranty-preview" src="/images/warranty.png" alt="warrranty image"
-                                    class='img-responsive' style='max-width:250px'></div>
-                        </label>
-                    </div>
-
                     <div class="form-group">
                         <input type="hidden" id="getwarrantyurl">
                     </div>
-                    <div class="form-group">
-                        <input type="hidden" id="getreceipturl">
-                    </div>
 
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <button class="btn btn-block btn-primary" id="addRecord">Add Product</button>
+                    </div>
 
                 </form>
             </div>
@@ -138,10 +136,8 @@
                     <div class="row">Purchase Date: <span id="purchasedate"></span></div>
                     <div class="row">Store: <span id="store"></span></div>
                     <div class="row">notes: <span id="notes"></span></div>
-                    <div class="row">Receipt: <img id="receipturl" src="" alt="receipt image" class='img-responsive'
-                            style='max-width:300px'></div>
-                    <div class="row">Warranty: <img id="warrantyurl" src="" alt="warrranty image" class='img-responsive'
-                            style='max-width:300px'></div>
+                    <div class="row">Receipt: <img id="receipturl" src="" alt="receipt image" class='img-responsive' style='max-width:300px'></div>
+                    <div class="row">Warranty: <img id="warrantyurl" src="" alt="warrranty image" class='img-responsive' style='max-width:300px'></div>
 
                 </div>
                 <div class="modal-footer">
