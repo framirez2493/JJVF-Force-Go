@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Test (Add Products)</title>
+    <title>ADD (Add Products)</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
@@ -26,11 +26,12 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <h3>Welcome <span class="member-name"></span></h3>
-                <h4>Add Products Page Based on Fernando's Work </h4>
-                <a href="/members"><button>View </button> </a>
-                <a href="/addProduct"><button>Add </button></a>
-                <a href="/manageProduct"><button>Update/Delete</button></a>
-                <br><br>
+                <h4>ADD: fill in details, add receipt and warranty images, then click "Add Product" </h4>
+                <ul class="nav nav-pills">
+                    <li><a href="/members">Home</a></li>
+                    <li class="active"><a href="/addProduct">Add</a></li>
+                    <li><a href="/manageProduct">Manage</a></li>
+                </ul>
             </div>
         </div>
         <br><br>
@@ -39,12 +40,7 @@
         <div class="row">
             <div class="col-12">
                 <form class="form-horizontal" action="/action_page.php">
-                    <div class="form-group">
-                        <div class="col-sm-6 col-sm-offset-3">
-                            <button class="btn btn-block btn-primary" id="addRecord">Add Product</button>
-                        </div>
-                        <div class="col-sm-3"></div>
-                    </div>
+
                     <div class="form-group">
                         <label for="datePurchased" class="col-sm-3 control-label">Date Purchased</label>
                         <div class="col-sm-9">
@@ -85,8 +81,8 @@
 
                     <div class="form-group">
                         <label class="control-label col-sm-6" for="receipt-upload">
-                            <div class="col-sm-3">UPDATE RECEIPT IMG</div>
-                            <div class="col-sm-3"><input id="receipt-upload" type="file" style="display:none;"></div>
+                            <div class="col-sm-5">CLICK TO ADD RECEIPT IMG</div>
+                            <div class="col-sm-1"><input id="receipt-upload" type="file" style="display:none;"></div>
                             <div class="col-sm-6"><img id="receipt-preview" src="/images/receipt.png" alt="receipt image"
                                     class='img-responsive' style='max-width:250px'></div>
                         </label>
@@ -95,8 +91,8 @@
                     <div class="form-group">
                         <label class="control-label col-sm-6" for="warranty-upload">
 
-                            <div class="col-sm-3">UPDATE WARRANTY IMG</div>
-                            <div class="col-sm-3"><input id="warranty-upload" type="file" style="display:none;"></div>
+                            <div class="col-sm-5">CLICK TO ADD WARRANTY IMG</div>
+                            <div class="col-sm-1"><input id="warranty-upload" type="file" style="display:none;"></div>
                             <div class="col-sm-6"><img id="warranty-preview" src="/images/warranty.png" alt="warrranty image"
                                     class='img-responsive' style='max-width:250px'></div>
                         </label>
@@ -108,7 +104,12 @@
                     <div class="form-group">
                         <input type="hidden" id="getreceipturl">
                     </div>
-
+                    <div class="form-group">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <button class="btn btn-block btn-success" id="addRecord">Add Product</button>
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
 
                 </form>
             </div>
