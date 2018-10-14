@@ -13,6 +13,7 @@ $(document).ready(function () {
     // this is the TABLE for the main web page 
     // product list display    see testlist.html
     maintable = $('#productlisttable').DataTable({
+        "responsive": true,
         "select": "on",
         "ajax": {
             url: "/api/v2/productdata",
@@ -25,8 +26,28 @@ $(document).ready(function () {
             { data: 'product_price' },
             {
                 'data': null,
-                "defaultContent": "<button class='productdelete'> X </button> <button class='productedit'> E </button>"
+                "defaultContent": '<i class="fa fa-remove productdelete" style="color:red;font-size:2rem"></i> <i class="fa fa-edit productedit" style="font-size:2rem"></i>'
             },
+        ],
+        "columnDefs": [
+            {
+                "targets": [0, 1],
+                render: function (data) {
+                    return moment(data).format('YYYY-MM-DD')
+                }
+            },
+            {
+                responsivePriority: 1,
+                targets: 4
+            },
+            {
+                responsivePriority: 1,
+                targets: 2
+            }, 
+            {
+                responsivePriority: 1,
+                targets: 0
+            }, 
         ],
         "scrollY": '50vh',
         "scrollCollapse": true,
@@ -42,14 +63,14 @@ $(document).ready(function () {
     const picker2 = datepicker("#up_warrantyexp");
 
     // act on delete button on table
-    $('#productlisttable tbody').on("click", "button.productdelete", function () {
+    $('#productlisttable tbody').on("click", ".productdelete", function () {
         let data = maintable.row($(this).parents('tr')).data();
         console.log(data)
         showDeleteModal("DELETE REQUEST", "Are you sure you want to delete this record?", data)
     })
 
     // act on edit button on table
-    $('#productlisttable tbody').on("click", "button.productedit", function () {
+    $('#productlisttable tbody').on("click", ".productedit", function () {
         let data = maintable.row($(this).parents('tr')).data();
         console.log(data)
         showUpdateModal("UPDATE REQUEST", "Stuff inside here to update", data)
@@ -84,7 +105,7 @@ $(document).ready(function () {
     // warranty Upload event listener preview, gest URL from cloudinary
     var warrantyUpload = document.getElementById('warranty-upload');
     if (warrantyUpload != null) {
-        attachListener1(warrantyUpload, 'up_warrantyurl',"#getwarrantyurl");
+        attachListener1(warrantyUpload, 'up_warrantyurl', "#getwarrantyurl");
     }
 
 
@@ -96,40 +117,40 @@ $(document).ready(function () {
 // urlresult refers to the ID where to place the resulting URL string
 function attachListener1(receiptUpload, previewselector, urlresult) {
     var imgPreview = document.getElementById(previewselector);
-  
-  
-    receiptUpload.addEventListener('change', function (event) {
-      var file = event.target.files[0];
-      var formData = new FormData();
-      formData.append('file', file);
-      formData.append('upload_preset', CLAUDINARY_UPLOAD_PRESET);
 
-      // disable while uploading image and change message
-      
-      axios({
-        url: CLAUDINARY_URL,
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        data: formData
-      }).then(function (res) {
-        imgPreview.src = res.data.secure_url;
-        //append(imgPreview.src);
-  
-        console.log(urlresult, imgPreview.src);
-  
-        $(urlresult).val(imgPreview.src);
-        console.log(urlresult, imgPreview.src);
-  
-  
-      }).catch(function (err) {
-        console.log(err);
-  
-      });
+
+    receiptUpload.addEventListener('change', function (event) {
+        var file = event.target.files[0];
+        var formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', CLAUDINARY_UPLOAD_PRESET);
+
+        // disable while uploading image and change message
+
+        axios({
+            url: CLAUDINARY_URL,
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: formData
+        }).then(function (res) {
+            imgPreview.src = res.data.secure_url;
+            //append(imgPreview.src);
+
+            console.log(urlresult, imgPreview.src);
+
+            $(urlresult).val(imgPreview.src);
+            console.log(urlresult, imgPreview.src);
+
+
+        }).catch(function (err) {
+            console.log(err);
+
+        });
     });
-  }
-  
+}
+
 
 // extract data from modal fomr for updates.  And submit Update request
 function captureDataAndUpdate() {
@@ -172,7 +193,7 @@ function showUpdateModal(status, statusmessage, data) {
     $("#up_notes").val(data.notes)
 
 
-    
+
     // reset button and messages before showing module
     $("#confirmupdate").prop("disabled", false)
     $("#up_statusmessage").html("")

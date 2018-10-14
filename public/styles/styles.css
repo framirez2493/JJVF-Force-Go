@@ -86,3 +86,8 @@ body {
     cursor: pointer;
     background: #3949AB;
 }
+
+
+.dataTables_filter input { 
+  width: 250px;
+}

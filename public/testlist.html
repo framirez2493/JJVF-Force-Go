@@ -2,37 +2,42 @@
 <html lang="en">
 
 <head>
-    <title>Test (View Products)</title>
+    <title>HOME (View Products)</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/styles.css">
+
     <!-- datatables CDN https://datatables.net/examples/basic_init/zero_configuration.html -->
     <link rel="stylesheet" type="text/css" media="screen" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+
+    <link rel="stylesheet" href="styles/styles.css">
+
 </head>
 
 <body>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/logout">
-                    Logout
-                </a>
+                <a class="navbar-brand" href="/logout">Logout</a>
             </div>
         </div>
     </nav>
     <div class="container">
         <div class="row">
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-9 col-md-offset-3">
                 <h3>Welcome <span class="member-name"></span></h3>
-                <h4>Main Page: Show Data  click for Details. </h4>
-                <a href="/members"><button>View </button> </a>
-                <a href="/addProduct"><button>Add </button></a> 
-                <a href="/manageProduct"><button>Update/Delete</button></a>
-                <br><br>
+
+                <h4>Home: Click on Product For More Details</h4>
+                <ul class="nav nav-pills">
+                        <li class="active"><a href="/members">Home</a></li>
+                        <li><a href="/addProduct">Add</a></li>
+                        <li><a href="/manageProduct">Manage</a></li>
+                </ul>
             </div>
         </div>
+        <div class="row">
 
+        </div>
         <div class="row">
             <p id="resultproductlist">
             </p>
@@ -41,7 +46,7 @@
                     <tr>
                         <th title="Field #1">ID</th>
                         <th title="Field #5">Warranty Expire</th>
-                        <th title="Field #2">Purchased Date</th>
+                        <th title="Field #2">Purchased</th>
                         <th title="Field #3">Product</th>
                         <th title="Field #4">Price</th>
 
@@ -75,8 +80,10 @@
                     <div class="row">Purchase Date: <span id="purchasedate"></span></div>
                     <div class="row">Store: <span id="store"></span></div>
                     <div class="row">notes: <span id="notes"></span></div>
-                    <div class="row">Receipt: <img id="receipturl" src="" class='img-responsive' style='max-width:300px' alt="receipt image"></div>
-                    <div class="row">Warranty: <img id="warrantyurl" src="" class='img-responsive' style='max-width:300px' alt="warrranty image"></div>
+                    <div class="row">Receipt: <img id="receipturl" src="" class='img-responsive' style='max-width:300px'
+                            alt="receipt image"></div>
+                    <div class="row">Warranty: <img id="warrantyurl" src="" class='img-responsive' style='max-width:300px'
+                            alt="warrranty image"></div>
 
                 </div>
                 <div class="modal-footer">
@@ -97,6 +104,8 @@
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
     <script type="text/javascript" src="js/testinglist.js"></script>
 
 </body>
