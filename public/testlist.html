@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Test (View Products)</title>
+    <title>HOME (View Products)</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
@@ -24,14 +24,19 @@
     </nav>
     <div class="container">
         <div class="row">
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-9 col-md-offset-3">
                 <h3>Welcome <span class="member-name"></span></h3>
-                <h4>Main Page: Show Data click for Details.</h4>
-                <a href="/members"><button class="active">View </button> </a>
-                <a href="/addProduct"><button>Add </button></a>
-                <a href="/manageProduct"><button>Update/Delete</button></a>
-                <br><br>
+
+                <h4>Home: Click on Product For More Details</h4>
+                <ul class="nav nav-pills">
+                        <li class="active"><a href="/members">Home</a></li>
+                        <li><a href="/addProduct">Add</a></li>
+                        <li><a href="/manageProduct">Manage</a></li>
+                </ul>
             </div>
+        </div>
+        <div class="row">
+
         </div>
         <div class="row">
             <p id="resultproductlist">
