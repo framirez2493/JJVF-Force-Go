@@ -6,6 +6,7 @@
     box-shadow: 1px 1px 1px #0000004f;
 }
 
+
 .btn-grad {
     border-width: 1px;
     border-style: solid;
@@ -81,19 +82,47 @@
     }
 
  .member-name {
-            color: #000;
+            color: #D69CAF;
             font-weight: bold;
-            font-size: 34px;
+            font-size: 38px;
             letter-spacing: 1px;
-            padding: 15px;
+            padding: 10px;
+            text-decoration: underline;
+            text-decoration-style:wavy;
         }
-modal-title {
-    text-align: left !important;
-    float: left;
 
-}
+.modal-title {
+        line-height: 1.5;
+        letter-spacing: 1px;
+        width: 100%;
+    }
 
 .modal-header .close {
     float:right !important;
     color: red !important;
+    margin-right: 0;
+}
+
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    font-family: "Poppins-Regular";
+    font-weight: bold;
+}
+
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+
+    font-family: "Poppins-Regular";
+    color: #000;
+}
+
+label {
+    font-weight: 400;
+    margin-top: 25px;
+    margin-bottom: 20px;
 }
