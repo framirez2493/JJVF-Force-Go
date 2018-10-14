@@ -87,7 +87,16 @@ body {
     background: #3949AB;
 }
 
+/*
+Datatables Search bar, make it longerno
+*/
+
 
 .dataTables_filter input { 
   width: 250px;
 }
+
+.avatar {
+  max-width: 2.5rem;
+}
+
