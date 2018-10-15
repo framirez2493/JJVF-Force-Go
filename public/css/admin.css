@@ -103,6 +103,16 @@
     margin-right: 0;
 }
 
+#modalstatus {
+    color: red;
+    font-weight: bold;
+}
+
+#modalstatusreason{
+    color: red;
+    font-weight: bold;
+}
+
 .row {
     display: -ms-flexbox;
     display: flex;
@@ -126,3 +136,9 @@ label {
     margin-top: 25px;
     margin-bottom: 20px;
 }
+
+w-100 p-3 {
+    background-color:#fff;
+}
+
+/* Responsive ]*/
