@@ -295,4 +295,3 @@ function getbyid() {
         $("#resultproductid").html(newdata)
     })
 }
-

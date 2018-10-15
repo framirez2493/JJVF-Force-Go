@@ -196,4 +196,3 @@ function getlist() {
         $("#resultproductlist").html(newdata)
     })
 }
-
