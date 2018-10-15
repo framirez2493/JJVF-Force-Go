@@ -64,7 +64,7 @@ $(document).ready(function () {
         // Check if values are empty
         if (productname==="" || warrantyexp ==="Invalid date" || purchasedate === "Invalid date") {
             let status = "FAIL"
-            let failreason = "Missing Data: Pleae make sure at least the Product Name, Warranty Expiration Date, and Purchase Date is supplied."
+            let failreason = "Missing Data: Please make sure at least the Product Name, Warranty Expiration Date, and Purchase Date is supplied."
             addModal(product2add, status, failreason)
    
         } else {
