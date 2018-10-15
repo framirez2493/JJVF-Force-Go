@@ -58,6 +58,12 @@ $(document).ready(function () {
                 "targets": [0],
                 "visible": false,
                 "searchable": false
+            },
+            {
+                "targets":[1,2],
+                render: function(data) {
+                    return moment(data).format('YYYY-MM-DD')
+                },
             }
         ],
         "order": [
@@ -230,4 +236,3 @@ function getbyid() {
         $("#resultproductid").html(newdata)
     })
 }
-
